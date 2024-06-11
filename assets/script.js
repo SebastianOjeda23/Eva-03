@@ -16,5 +16,11 @@ function RecuperarDatos()
     let eEfectivo = document.getElementById("Efectivo")
     let vNombre = eNombre.value = vNombre
     let vApellido = eApellido.value = vApellido
+    let vRut = eRut.value = vRut
+    let vFecha = eFecha.value = vFecha
+    let vNombreJuego = eNombreJuego.value = vNombreJuego
+    let vCompanny = eCompanny.value = vCompanny
+    let vDireccion = eDireccion.value = vDireccion
+    //let objeto = :
 
 
