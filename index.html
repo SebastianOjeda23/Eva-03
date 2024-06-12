@@ -3,32 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="assets/script.js"></script>
+    <script type="module" src="assets/firebase.js"></script>
+    <script type="module" src="assets/script.js"></script>
+    <link rel="stylesheet" href="./assets/style.css">
     <title>Document</title>
 </head>
 <body>
-    <button>Cambiar contraste</button>
-    <button>Cambiar Letra</button>
+    <button id="toggle-contrast" onclick="cambiarContraste()">Cambiar Contraste</button>
+    <button id="toggle-font-size" onclick="cambiarTamañoLetra()">Cambiar Tamaño de Letra</button>
     <div>Bienvenido a la pagina de pre registro de videojuegos</div>
     <div>
         <p>Dentro de esta pagina te podras pre registrar para comprar videojuegos</p>
     </div>
-    <input type="text" placeholder="Ingrese su nombre" id="NombreCliente">Nombre cliente</input>
-    <input type="text" placeholder="Ingrese su apellido" id="ApellidoCliente">Apellido</input>
-    <input type="text" id="RutCliente" placeholder="Ingrese su rut">Rut</input>
-    <input type="date" id="FechaEntrega">Fecha de entrega</input>
-    <input type="text" placeholder="Ingrese el nombre del juego" id="NombreJuego">Nombre del juego</input>
-    <input type="text" placeholder="Ingrese la compañia" id="CompañiaJuego">Compañia del juego</input>
-    <input type="text" placeholder="Copias de videojuegos" id="Copiajuegos">Cantidad de copias</input>
+    <form>
+        <div class="form-group">
+            <label for="NombreCliente">Nombre cliente:</label>
+            <input type="text" placeholder="Ingrese su nombre" id="NombreCliente">
+        </div>
+        <div class="form-group">
+            <label for="ApellidoCliente">Apellido:</label>
+            <input type="text" placeholder="Ingrese su apellido" id="ApellidoCliente">
+        </div>
+        <div class="form-group">
+            <label for="RutCliente">Rut:</label>
+            <input type="text" id="RutCliente" placeholder="Ingrese su rut">
+        </div>
+        <div class="form-group">
+            <label for="FechaEntrega">Fecha de entrega:</label>
+            <input type="date" id="FechaEntrega">
+        </div>
+        <div class="form-group">
+            <label for="NombreJuego">Nombre del juego:</label>
+            <input type="text" placeholder="Ingrese el nombre del juego" id="NombreJuego">
+        </div>
+        <div class="form-group">
+            <label for="CompañiaJuego">Compañia del juego:</label>
+            <input type="text" placeholder="Ingrese la compañia" id="CompañiaJuego">
+        </div>
+        <div class="form-group">
+            <label for="Copiajuegos">Cantidad de copias:</label>
+            <input type="number" placeholder="Copias de videojuegos" id="Copiajuegos">
+        </div>
+    </form>
     <Div> Direccion de su casa <hr>
     <textarea name="Direccion" id="Direccion" cols="30" rows="10" placeholder="Ingrese la direccion de su casa"></textarea>
-    <hr>
-    </Div>
     <div>Seleccione su metodo de pago
-        <div> 
-        <input type="checkbox"id=Credito>Credito</input>
-        <input type="checkbox"id=Efectivo>Efectivo</input>
-        </div>
-    </div>    
+           <form action=""></form>
+    </div>
+    <form action="/index.html">
+        <input type="checkbox" id="credito" value="credito">
+        <label for="html">credito</label>
+        <input type="checkbox" id="efectivo" value="efectivo">
+        <label for="html">efectivo</label>
+    </form>
+    <button id="btnRegistro">Registrar compra</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre cliente</th>
+                <th>Apellido cliente</th>
+                <th>Rut</th>
+                <th>Fecha de entrega</th>
+                <th>Nombre del juego</th>
+                <th>Compañia del juego</th>
+                <th>Cantidad de copias</th>
+                <th>Direccion</th>
+                <th>Metodo de pago</th>
+         </tr>
+        </thead>
+    </table>
+
 </body>
 </html>

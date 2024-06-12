@@ -1,26 +1,65 @@
-//const RecuperarDatos(()=>{
-    
-//})
 
-function RecuperarDatos()
+window.addEventListener("load",()=>{
+    document.getElementById("btnRegistro").addEventListener("click",registrar);
+    cargarDatos();
+})
+
+const registrar = ()=>{
     let eNombre = document.getElementById("NombreCliente");
     let eApellido = document.getElementById("ApellidoCliente");
     let eRut = document.getElementById("RutCliente");
-    let eFecha = document.getElementById("FechaEntrega")
-    let eNombreJuego = document.getElementById("NombreJuego")
-    let eCompanny = document.getElementById("CompañiaJuego")
-    //Se dejo como Ecompanny ya que no soporta la Ñ
-    let eDireccion = document.getElementById("Direccion")
-    //console.log(RecuperarDatos) Se hace un console.log para ver por la consola si hay algun error
-    let eCredito = document.getElementById("Credito")
-    let eEfectivo = document.getElementById("Efectivo")
-    let vNombre = eNombre.value = vNombre
-    let vApellido = eApellido.value = vApellido
-    let vRut = eRut.value = vRut
-    let vFecha = eFecha.value = vFecha
-    let vNombreJuego = eNombreJuego.value = vNombreJuego
-    let vCompanny = eCompanny.value = vCompanny
-    let vDireccion = eDireccion.value = vDireccion
-    //let objeto = :
+    let eFechaEntrega = document.getElementById("FechaEntrega");
+    let eNombreJuego = document.getElementById("NombreJuego");
+    let eCompaniaJuego = document.getElementById("CompañiaJuego");
+    let eCantidadCopias = document.getElementById("CopiaJuegos");
+    let eDireccion = document.getElementById("Direccion");
+    let eCredito = document.getElementById("credito");
+    let eEfectivo = document.getElementById("efectivo");
 
+    let vNombre = eNombre.value;
+    let vApellido = eApellido.value;
+    let vRut = eRut.value;
+    let vFechaEntrega = eFechaEntrega.value;
+    let vNombreJuego = eNombreJuego.value;
+    let vCompaniaJuego = eCompaniaJuego.value;
+    let vCantidadCopias = eCantidadCopias.value;
+    let vDireccion = eDireccion.value;
+    let vCredito = eCredito.checked; 
+    let vEfectivo = eEfectivo.checked; 
+
+    let objeto = {
+        nombre: vNombre,
+        apellido: vApellido,
+        rut: vRut,
+        FechaEntrega: vFechaEntrega,
+        nombrejuego: vNombreJuego,
+        companiajuego: vCompaniaJuego,
+        copias: vCantidadCopias,
+        direccion: vDireccion,
+        credito: vCredito,
+        efectivo: vEfectivo
+    };
+    console.log(objeto)
+}   
+
+
+
+
+
+let colorOriginal = true;
+
+function cambiarContraste() {
+    const body = document.body;
+
+    if (colorOriginal) {
+        body.style.backgroundColor = "black";
+        body.style.color = "white";
+    } else {
+        body.style.backgroundColor = "white";
+        body.style.color = "black";
+    }
+
+    colorOriginal = !colorOriginal;
+}
+//Esta funcion nos permite cambiar el color de la pagina y el contraste de esta
 
