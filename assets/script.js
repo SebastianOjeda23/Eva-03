@@ -1,12 +1,45 @@
 import { ActualizarPersona,eliminarPersona,obtenerPersona,registrarPersona } from "./promesas.js";
 
-window.addEventListener("load",()=>{
-    document.getElementById("btnRegistro").addEventListener("click",registrar);
+
+window.addEventListener("load", () => {
+    document.getElementById("toggle-contrast").onclick = () => {
+        document.body.classList.toggle("dark-mode");
+    };
+//permite cambiar el contraste de la pagina
+    document.getElementById("toggle-font-size").onclick = () => {
+        document.body.classList.toggle("large-font");
+    };
+//Permite cambiar el tamaño de la letra en la pagina
+    document.getElementById("btnRegistro").onclick = () => {
+        const campos = ["NombreCliente", "ApellidoCliente", "RutCliente", "FechaEntrega", "NombreJuego", "CompañiaJuego", "Copiajuegos", "Direccion"];
+        let valid = true;
+
+        campos.forEach(id => {
+            const campo = document.getElementById(id);
+            if (campo.value.trim() === "") {
+                campo.style.borderColor = "red";
+                valid = false;
+            } else {
+                campo.style.borderColor = "";
+            }
+        });
+
+        if (valid) {
+            registrar();
+        } else {
+            alert("Por favor, complete todos los campos.");
+        }
+        //Valida si todos los campos estan completos o si faltan datos por rellenar y en caso de levanta una alerta a la pagina
+        //si no es asi levanta una alerta y pone los marcos de los cuadros en rojo
+
+    };
+
     cargarDatos();
-    document.getElementById("btnActualizar").addEventListener("click",actualizar);
-})
+    document.getElementById("btnActualizar").addEventListener("click", actualizar);
+});
 
 const registrar = ()=>{
+    //obtiene referencias a los elementos del formulario
     let eNombre = document.getElementById("NombreCliente");
     let eApellido = document.getElementById("ApellidoCliente");
     let eRut = document.getElementById("RutCliente");
@@ -17,7 +50,7 @@ const registrar = ()=>{
     let eDireccion = document.getElementById("Direccion");
     let eCredito = document.getElementById("credito");
     let eEfectivo = document.getElementById("efectivo");
-
+    //obtiene los valores del formulario
     let vNombre = eNombre.value;
     let vApellido = eApellido.value;
     let vRut = eRut.value;
@@ -28,7 +61,7 @@ const registrar = ()=>{
     let vDireccion = eDireccion.value;
     let vCredito = eCredito.checked; 
     let vEfectivo = eEfectivo.checked; 
-
+    //crea un objeto con los valores obtenidos
     let objeto = {
         nombre: vNombre,
         apellido: vApellido,
@@ -41,6 +74,8 @@ const registrar = ()=>{
         credito: vCredito,
         efectivo: vEfectivo
     };
+     // Llamar a la función registrarPersona con el objeto creado y manejar la respuesta
+        // en caso de funcionar manda un mensaje de usuario
     registrarPersona(objeto).then(()=>{
         alert("Pedido realizado con excito!");
         cargarDatos()
@@ -66,17 +101,23 @@ const cargarDatos = ()=>{
             estructura += "<td>"+p.companiajuego+"</td>"
             estructura += "<td>"+p.copias+"</td>"
             estructura += "<td>"+p.direccion+"</td>"
-            estructura += "<td>"+p.credito+"</td>"
-            estructura += "<td>"+p.efectivo+"</td>" 
+            estructura += "<td>" + (p.credito ? "Sí" : "No") + "</td>";
+            estructura += "<td>" + (p.efectivo ? "Sí" : "No") + "</td>";
             estructura += "<td><button id='UPD"+p.id+"'>Actualizar</button></td>"
             estructura += "<td><button id='DEL"+p.id+"'>Eliminar</button></td>"
             estructura += "</tr>"
         })
+        // Insertar la estructura generada en el cuerpo de la tabla
         document.getElementById("CuerpoTabla").innerHTML = estructura;
-        
+         // Asignar eventos a los botones de Actualizar y Eliminar
         persona.forEach((p)=>{
+
+
             let elemento = document.getElementById("UPD"+p.id);
+                    // Obtener el botón de Actualizar y asignar evento click
+
             elemento.addEventListener("click",()=>{
+                // Llenar los campos del formulario de actualización con los datos seleccionados
                 document.getElementById("UPDNombreCliente").value =p.nombre;
                 document.getElementById("UPDApellidoCliente").value =p.apellido;
                 document.getElementById("UPDRutCliente").value =p.rut;
@@ -87,21 +128,23 @@ const cargarDatos = ()=>{
                 document.getElementById("UPDDireccion").value =p.direccion;
                 document.getElementById("UPDcredito").value =p.credito;
                 document.getElementById("UPDefectivo").value =p.efectivo;
-                document.getElementById("btnActualizar").value =p.id;
+                document.getElementById("btnActualizar").value =p.id; //ASIGNAMOS EL ID AL OBJETO A ACTUALIZAR
             });
+            //obtener el boton de eliminar y asignar el evento de click
             let btnEliminar = document.getElementById("DEL"+p.id);
             btnEliminar.addEventListener("click",()=>{
+                //esto sirve para confirmar la eliminacion en la alerta
                 if(confirm("Desea eliminar el pedido de: \n"+p.nombre+" "+p.apellido)){
-                    console.log("vamos a eliminar")
-                    eliminarPersona(p.id).then(()=>{
-                        alert("eliminaste con exito!")
+                    console.log("vamos a eliminar") //mensaje de confirmacion dentro de la consola
+                    eliminarPersona(p.id).then(()=>{ //alerta de eliminacion excitosa
+                        alert("eliminaste con exito!") //alerta para confirmar que elimino con excito o para avisar
                         cargarDatos();
                     }).catch((e)=>{
-                        console,log(e)
+                        console,log(e) 
                     })
                     
                 }else(
-                    console.log("cancelaste la eliminacion")
+                    console.log("cancelaste la eliminacion") //mensaje en caso de cancelar la eliminacion
                 )
             })
         })
@@ -109,6 +152,7 @@ const cargarDatos = ()=>{
 }
 
 const actualizar = ()=>{
+    //obtener las referencias  a los elementos del formulario de actualizacion
     let eNombre = document.getElementById("UPDNombreCliente");
     let eApellido = document.getElementById("UPDApellidoCliente");
     let eRut = document.getElementById("UPDRutCliente");
@@ -120,6 +164,7 @@ const actualizar = ()=>{
     let eCredito = document.getElementById("UPDcredito");
     let eEfectivo = document.getElementById("UPDefectivo");
 
+    //obtener los valores actuales de los campos del formulario de actualizacion
     let vNombre = eNombre.value;
     let vApellido = eApellido.value;
     let vRut = eRut.value;
@@ -128,9 +173,10 @@ const actualizar = ()=>{
     let vCompaniaJuego = eCompaniaJuego.value;
     let vCantidadCopias = eCantidadCopias.value;
     let vDireccion = eDireccion.value;
-    let vCredito = eCredito.checked; 
-    let vEfectivo = eEfectivo.checked;
+    let vCredito = eCredito.checked;  //verifica si el checkbox esta marcado
+    let vEfectivo = eEfectivo.checked; // verifica si el checkbox esta marcado
 
+    //se crea un objeto con los valores actualizados
     let objeto = {
         nombre: vNombre,
         apellido: vApellido,
@@ -152,8 +198,9 @@ ActualizarPersona(objeto,id).then(()=>{
     cargarDatos();
     document.getElementById("btnActualizar").disabled = "";
 }).catch((e)=>{
-    console.log(e)
+    console.log(e)//manejar el error que pueda  ocurrir durante la actualizacion 
 }).finally(()=>{
+    //habilita el boton nuevamente despues de finalizar el proceso
     document.getElementById("btnActualizar").disabled = ""
 })
 }
