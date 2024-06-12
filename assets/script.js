@@ -58,15 +58,16 @@ const cargarDatos = ()=>{
         let estructura = ""
         persona.forEach((p)=>{
             estructura += "<tr>"
-            estructura += "<td>"+p.nombre+"<td>"
-            estructura += "<td>"+p.apellido+"<td>"
-            estructura += "<td>"+p.rut+"<td>"
-            estructura += "<td>"+p.FechaEntrega+"<td>"
-            estructura += "<td>"+p.nombrejuego+"<td>"
-            estructura += "<td>"+p.companiajuego+"<td>"
-            estructura += "<td>"+p.copias+"<td>"
-            estructura += "<td>"+p.credito+"<td>"
-            estructura += "<td>"+p.efectivo+"<td>"
+            estructura += "<td>"+p.nombre+"</td>"
+            estructura += "<td>"+p.apellido+"</td>"
+            estructura += "<td>"+p.rut+"</td>"
+            estructura += "<td>"+p.FechaEntrega+"</td>"
+            estructura += "<td>"+p.nombrejuego+"</td>"
+            estructura += "<td>"+p.companiajuego+"</td>"
+            estructura += "<td>"+p.copias+"</td>"
+            estructura += "<td>"+p.direccion+"</td>"
+            estructura += "<td>"+p.credito+"</td>"
+            estructura += "<td>"+p.efectivo+"</td>" 
             estructura += "<td><button id='UPD"+p.id+"'>Actualizar</button></td>"
             estructura += "<td><button id='DEL"+p.id+"'>Eliminar</button></td>"
             estructura += "</tr>"
@@ -76,7 +77,7 @@ const cargarDatos = ()=>{
         persona.forEach((p)=>{
             let elemento = document.getElementById("UPD"+p.id);
             elemento.addEventListener("click",()=>{
-                document.getElementById("UPDnombre").value =p.nombre;
+                document.getElementById("UPDNombreCliente").value =p.nombre;
                 document.getElementById("UPDApellidoCliente").value =p.apellido;
                 document.getElementById("UPDRutCliente").value =p.rut;
                 document.getElementById("UPDFechaEntrega").value =p.FechaEntrega;
@@ -86,12 +87,12 @@ const cargarDatos = ()=>{
                 document.getElementById("UPDDireccion").value =p.direccion;
                 document.getElementById("UPDcredito").value =p.credito;
                 document.getElementById("UPDefectivo").value =p.efectivo;
-                document.getElementById("btnactualizar").value =p.id;
+                document.getElementById("btnActualizar").value =p.id;
             });
             let btnEliminar = document.getElementById("DEL"+p.id);
             btnEliminar.addEventListener("click",()=>{
                 if(confirm("Desea eliminar el pedido de: \n"+p.nombre+" "+p.apellido)){
-                    console,log("vamos a eliminar")
+                    console.log("vamos a eliminar")
                     eliminarPersona(p.id).then(()=>{
                         alert("eliminaste con exito!")
                         cargarDatos();
@@ -141,19 +142,19 @@ const actualizar = ()=>{
         direccion: vDireccion,
         credito: vCredito,
         efectivo: vEfectivo};
-let id = document.getElementById("btnactualizar").value
+let id = document.getElementById("btnActualizar").value
 //envia el objeto y el id a las promesas
 
 //cargar algo tipo loading
-document.getElementById("btnactualizar").disabled = "True";
+document.getElementById("btnActualizar").disabled = "True";
 ActualizarPersona(objeto,id).then(()=>{
     alert("Se actualizo con excito")
     cargarDatos();
-    document.getElementById("btnactualizar").disabled = "";
+    document.getElementById("btnActualizar").disabled = "";
 }).catch((e)=>{
     console.log(e)
 }).finally(()=>{
-    document.getElementById("btnactualizar").disabled = ""
+    document.getElementById("btnActualizar").disabled = ""
 })
 }
 
