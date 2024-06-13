@@ -1,5 +1,5 @@
 import { ActualizarPersona,eliminarPersona,obtenerPersona,registrarPersona } from "./promesas.js";
-
+// Importa las funciones ActualizarPersona, eliminarPersona, obtenerPersona y registrarPersona desde el archivo promesas.js
 
 window.addEventListener("load", () => {
     document.getElementById("toggle-contrast").onclick = () => {
@@ -80,7 +80,7 @@ const registrar = ()=>{
         alert("Pedido realizado con excito!");
         cargarDatos()
     }).catch((error)=>{
-        console.log(error)
+        console.log(error) //en caso de fallar mandara un error a la consola
     })
     
 }   
@@ -191,10 +191,13 @@ const actualizar = ()=>{
 let id = document.getElementById("btnActualizar").value
 //envia el objeto y el id a las promesas
 
-//cargar algo tipo loading
+// Deshabilita el botón de actualización para evitar múltiples clics durante el proceso
 document.getElementById("btnActualizar").disabled = "True";
+// Llama a la función para actualizar la información de una persona con el objeto y el id proporcionados
 ActualizarPersona(objeto,id).then(()=>{
+       // Muestra una alerta cuando la actualización se ha completado con éxito
     alert("Se actualizo con excito")
+     // Recarga los datos actualizados en la interfaz
     cargarDatos();
     document.getElementById("btnActualizar").disabled = "";
 }).catch((e)=>{
